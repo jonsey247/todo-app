@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {createStore} from 'redux';
 import Todos from './Todos';
 import AddTodos from './AddTodos';
-import SignIn from './SignIn'
+import SignIn from './SignIn';
+import actions from './actions'
+import reducer from './store/reducer';
 
-
+const store = createStore(reducer)
 class App extends Component {
   state = {
     todos: [
@@ -32,14 +36,14 @@ class App extends Component {
   signIn = (password) => {
     if(password === this.state.password) {
       let signedIn = true;
-      this.setState({
+      this.props.signIn({
         signedIn
       })
     }
   }
   render() {
     return (
-      this.state.signedIn ? (
+      this.props.signedIn ? (
         <div className="todo-app container">
           <Todos todos={this.state.todos} deleteTodo={this.deleteTodo}/>
           <AddTodos addTodo={this.addTodo}/>
@@ -48,4 +52,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { signedIn: state.signedIn }
+};
+
+export default connect(mapStateToProps, {
+  signIn: actions.signIn
+})(App);
