@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {createStore} from 'redux';
 import Todos from './Todos';
 import AddTodos from './AddTodos';
 import SignIn from './SignIn';
 import actions from './actions'
 import reducer from './store/reducer';
 
-const store = createStore(reducer)
 class App extends Component {
   state = {
     todos: [
