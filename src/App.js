@@ -4,7 +4,10 @@ import Todos from './Todos';
 import AddTodos from './AddTodos';
 import SignIn from './SignIn';
 import actions from './actions'
+import selectors from './selectors'
 import reducer from './store/reducer';
+import store from './store'
+import { createStructuredSelector } from 'reselect';
 
 class App extends Component {
   state = {
@@ -50,10 +53,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { signedIn: state.signedIn }
+const mapStateToProps =(selectors) => {
+  // return {signedIn: selectors.signedIn}
 };
 
 export default connect(mapStateToProps, {
-  signIn: actions.signIn
+  signIn: actions.signIn,
+  signedIn: selectors.signedIn
 })(App);
